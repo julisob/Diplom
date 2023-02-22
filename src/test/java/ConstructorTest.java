@@ -23,13 +23,9 @@ public class ConstructorTest {
     @Test
     @DisplayName("Проверка переходов к разделам:«Булки», «Соусы», «Начинки».")
     public void navigationThroughMenu() {
-
-        mainPage.clickFillingsButton();
-        mainPage.checkGoToTheFillingsSection();
-        mainPage.clickSaucesButton();
         mainPage.checkGoToTheSaucesSection();
-        mainPage.clickBunsButton();
         mainPage.checkGoToTheBunsSection();
+        mainPage.checkGoToTheFillingsSection();
     }
 
     @After

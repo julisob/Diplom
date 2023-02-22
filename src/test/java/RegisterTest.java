@@ -63,13 +63,12 @@ public class RegisterTest {
         int statusCode = response.then().extract().statusCode();
         if(statusCode == SC_OK){
             accessToken = response.then().extract().path("accessToken").toString().substring(6).trim();
+            userHelper.deleteUser(accessToken);
         }
         Assert.assertEquals(objRegisterPage.waitForResultVisibility(expected), expected);
     }
     @After
-    public void tearDown() throws InterruptedException {
+    public void tearDown() {
         driver.quit();
-        userHelper.deleteUser(accessToken);
-        Thread.sleep(300);
     }
 }

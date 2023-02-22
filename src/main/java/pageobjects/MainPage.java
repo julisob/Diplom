@@ -3,8 +3,9 @@ package pageobjects;
 import org.hamcrest.MatcherAssert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-
-import static org.hamcrest.CoreMatchers.containsString;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
 import static org.hamcrest.CoreMatchers.startsWith;
 
 public class MainPage {
@@ -35,7 +36,7 @@ public class MainPage {
     private final By saucesButton = By.xpath(".//div[span[text()='Соусы']]");
 
     //кнопка начинки
-    private final By fillingsButton = By.xpath(".//*[text()='Начинки']");
+    private final By fillingsButton = By.xpath(".//div[span[text()='Начинки']]");
 
     public void clickAccountButton() {
         driver.findElement(personalAccountButton).click();
@@ -56,16 +57,28 @@ public class MainPage {
     public void clickFillingsButton() {
         driver.findElement(fillingsButton).click();
     }
-    public void checkGoToTheBunsSection(){
-        String text = driver.findElement(By.xpath(".//div[@style]/div[1]")).getAttribute("class");
-        MatcherAssert.assertThat(text, containsString("current"));
+    public MainPage checkGoToTheBunsSection(){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5)); // time out after 5 seconds
+        clickBunsButton();
+        wait.until(ExpectedConditions.attributeContains(bunsButton,
+                "class",
+                "tab_tab_type_current"));
+        return this;
     }
-    public void checkGoToTheSaucesSection(){
-        String text = driver.findElement(By.xpath(".//div[@style]/div[2]")).getAttribute("class");
-        MatcherAssert.assertThat(text, containsString("current"));
+    public MainPage checkGoToTheSaucesSection(){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5)); // time out after 5 seconds
+        clickSaucesButton();
+        wait.until(ExpectedConditions.attributeContains(saucesButton,
+                "class",
+                "tab_tab_type_current"));
+        return this;
     }
-    public void checkGoToTheFillingsSection(){
-        String text = driver.findElement(By.xpath(".//div[@style]/div[3]")).getAttribute("class");
-        MatcherAssert.assertThat(text, containsString("current"));
+    public MainPage checkGoToTheFillingsSection(){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5)); // time out after 5 seconds
+        clickFillingsButton();
+        wait.until(ExpectedConditions.attributeContains(fillingsButton,
+                "class",
+                "tab_tab_type_current"));
+        return this;
     }
 }
