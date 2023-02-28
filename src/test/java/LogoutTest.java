@@ -32,7 +32,7 @@ public class LogoutTest {
         mainPage.clickAccountButton();
         loginPage.enterEmailAndPassword();
         loginPage.clickSignInButton();
-        new WebDriverWait(driver, Duration.ofSeconds(5));
+        new WebDriverWait(driver, Duration.ofSeconds(10));
         mainPage.clickAccountButton();
         profilePage.clickLogoutButton();
         loginPage.checkRegistrationIsSuccessfully();
