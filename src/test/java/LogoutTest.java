@@ -2,15 +2,12 @@ import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pageobjects.LoginPage;
 import pageobjects.MainPage;
 import pageobjects.ProfilePage;
-
 import java.time.Duration;
 
 public class LogoutTest {
@@ -27,7 +24,7 @@ public class LogoutTest {
 
     @Test
     @DisplayName("Проверка выхода по кнопке «Выйти» в личном кабинете.")
-    public void Logout() {
+    public void logOut() {
         MainPage mainPage = new MainPage(driver);
         LoginPage loginPage = new LoginPage(driver);
         ProfilePage profilePage = new ProfilePage(driver);
@@ -35,14 +32,11 @@ public class LogoutTest {
         mainPage.clickAccountButton();
         loginPage.enterEmailAndPassword();
         loginPage.clickSignInButton();
-        new WebDriverWait(driver, Duration.ofSeconds(5))
-                .until(ExpectedConditions.elementToBeClickable(By.xpath(".//p[text()='Конструктор']")));
+        new WebDriverWait(driver, Duration.ofSeconds(5));
         mainPage.clickAccountButton();
         profilePage.clickLogoutButton();
         loginPage.checkRegistrationIsSuccessfully();
     }
-
-
 
     @After
     public void tearDown() {

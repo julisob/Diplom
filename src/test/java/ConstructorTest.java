@@ -21,10 +21,21 @@ public class ConstructorTest {
     }
 
     @Test
-    @DisplayName("Проверка переходов к разделам:«Булки», «Соусы», «Начинки».")
-    public void navigationThroughMenu() {
+    @DisplayName("Проверка переходов к разделу «Соусы»")
+    public void navigationThroughMenuSauce() {
         mainPage.checkGoToTheSaucesSection();
+    }
+
+    @Test
+    @DisplayName("Проверка переходов к разделу «Булки»")
+    public void navigationThroughMenuBuns() {
+        mainPage.clickSaucesButton();
         mainPage.checkGoToTheBunsSection();
+    }
+
+    @Test
+    @DisplayName("Проверка переходов к разделу «Начинки»")
+    public void navigationThroughMenuFillings() {
         mainPage.checkGoToTheFillingsSection();
     }
 

@@ -9,6 +9,10 @@ import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pageobjects.RegistrationPage;
+import user.Credentials;
+import user.Random;
+import user.User;
+import user.UserHelper;
 
 import java.time.Duration;
 
@@ -20,12 +24,14 @@ public class RegisterTest {
     private final String email;
     private final String password;
     private final String expected;
+    private int statusCode;
     private WebDriver driver;
     private RegistrationPage objRegisterPage;
     private static UserHelper userHelper;
     private static User user;
     private static User userPwd;
     private static String accessToken;
+    private  Response response;
 
     @Before
     public void setUp() {
@@ -59,16 +65,17 @@ public class RegisterTest {
     public void testRegister() {
         objRegisterPage.register(name, email, password);
         Credentials credentials = new Credentials(user);
-        Response response = userHelper.postLoginUser(credentials);
-        int statusCode = response.then().extract().statusCode();
-        if(statusCode == SC_OK){
-            accessToken = response.then().extract().path("accessToken").toString().substring(6).trim();
-            userHelper.deleteUser(accessToken);
-        }
+        response = userHelper.postLoginUser(credentials);
+        statusCode = response.then().extract().statusCode();
+
         Assert.assertEquals(objRegisterPage.waitForResultVisibility(expected), expected);
     }
     @After
     public void tearDown() {
+        if(statusCode == SC_OK){
+            accessToken = response.then().extract().path("accessToken").toString().substring(6).trim();
+            userHelper.deleteUser(accessToken);
+        }
         driver.quit();
     }
 }

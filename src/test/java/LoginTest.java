@@ -4,15 +4,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import pageobjects.LoginPage;
-import pageobjects.MainPage;
-import pageobjects.PasswordRecoveryPage;
-import pageobjects.RegistrationPage;
+import pageobjects.*;
 import java.time.Duration;
 
 public class LoginTest {
     private WebDriver driver;
     private MainPage mainPage;
+
     @Before
     public void setUp() {
         driver = new ChromeDriver();
@@ -73,7 +71,10 @@ public class LoginTest {
     }
 
     @After
-    public void tearDown() {
+    public void logOut(){
+        mainPage.clickAccountButton();
+        ProfilePage profilePage = new ProfilePage(driver);
+        profilePage.checkLogoutButton();
         driver.quit();
     }
 }

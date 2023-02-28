@@ -5,20 +5,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.time.Duration;
 
 public class RegistrationPage {
     private final WebDriver driver;
-    public RegistrationPage(WebDriver driver){
-        this.driver = driver;
-    }
-    public void open() {
-        driver.get(urlPage);
-    }
-    public WebElement wait(By element){
-        return new WebDriverWait(driver, Duration.ofSeconds(8))
-                .until(ExpectedConditions.visibilityOfElementLocated(element));
-    }
     //страница
     private final String urlPage = "https://stellarburgers.nomoreparties.site/register";
     //поле ввода имя
@@ -29,23 +20,38 @@ public class RegistrationPage {
     private final By passwordField = By.xpath("//fieldset[3]/div/div/input");
     //кнопка зарегистрироваться
     private final By registerButton = By.xpath("//button[text()='Зарегистрироваться']");
-
     //кнопка войти внизу страницы
     private final By signInButton = By.xpath(".//a[text()='Войти']");
+    public RegistrationPage(WebDriver driver) {
+        this.driver = driver;
+    }
+
+    public void open() {
+        driver.get(urlPage);
+    }
+
+    public WebElement wait(By element) {
+        return new WebDriverWait(driver, Duration.ofSeconds(8))
+                .until(ExpectedConditions.visibilityOfElementLocated(element));
+    }
 
     public void inputName(String name) {
         driver.findElement(nameField).sendKeys(name);
     }
+
     public void inputEmail(String email) {
         driver.findElement(emailField).sendKeys(email);
     }
+
     public void inputPassword(String password) {
         driver.findElement(passwordField).sendKeys(password);
     }
+
     public void clickRegister() {
         driver.findElement(registerButton).click();
     }
-    public void register(String name, String email, String password){
+
+    public void register(String name, String email, String password) {
         inputName(name);
         inputEmail(email);
         inputPassword(password);
@@ -57,7 +63,7 @@ public class RegistrationPage {
         return wait(someButton).getText();
     }
 
-    public void clickSignInButton(){
+    public void clickSignInButton() {
         driver.findElement(signInButton).click();
     }
 }
